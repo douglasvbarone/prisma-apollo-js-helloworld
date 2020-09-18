@@ -1,0 +1,28 @@
+{
+  "name": "prisma-apollo-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "nodemon --ext js,graphql src/index.js --exec 'npx babel-node'",
+    "build": "babel src --out-dir dist --copy-files",
+    "migrate": "npx prisma migrate save --name init --experimental && npx prisma migrate up --experimental && npx prisma generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.5",
+    "@prisma/cli": "^2.7.1",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {    
+    "@prisma/client": "^2.7.1",
+    "apollo-server": "^2.17.0",
+    "graphql": "^15.3.0"
+  }
+}
