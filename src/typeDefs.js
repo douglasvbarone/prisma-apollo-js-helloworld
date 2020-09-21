@@ -9,6 +9,9 @@ type Query {
 type Mutation {
     createUser (email: String!, name: String, bio: String): User!    
     createPost (title: String!, content: String, published: Boolean = false, authorEmail: String!): Post!
+    deleteUser (email: String!): User!
+    deletePost (postId: Int!): Post!
+    updateProfile (email: String!, bio: String!): Profile!
 }
 
 type Post {

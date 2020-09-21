@@ -6,8 +6,8 @@ export const resolvers = {
                 profile: true,
             },
         }),
-        
-        posts: (_, args, {db})=> db.post.findMany()
+
+        posts: (_, args, { db }) => db.post.findMany()
     },
 
     Mutation: {
@@ -37,6 +37,27 @@ export const resolvers = {
                     }
                 }
             }
+        }),
+
+        deleteUser: (_, { email }, { db }) => db.user.delete({ where: { email } }),
+
+        deletePost: (_, { postId }, { db }) => db.post.delete({ where: { id: postId } }),
+
+        updateProfile: async (_, { email, bio }, { db }) => db.profile.upsert({
+            where: {
+                userId: (await db.user.findOne({ where: { email } })).id
+            },
+            create: {
+                bio,
+                user: {
+                    connect: {
+                        email
+                    }
+                }
+            },
+            update: {
+                bio
+            }
         })
     },
 
@@ -53,6 +74,12 @@ export const resolvers = {
             where: {
                 userId: _.id
             }
-        })
+        }),
+
+        posts: (_, args, { db }) => db.post.findMany({ where: { authorId: _.id } })
+    },
+
+    Profile: {
+        user: (_, args, { db }) => db.user.findOne({ where: { id: _.userId } })
     }
 }
