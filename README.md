@@ -5,6 +5,7 @@ A simple Prisma example using Apollo server.
 * Node / NPM
 * Docker & Docker compose (only for DB)
 
+If you don't want to setup a DB with Docker, you can do it manually or use the branch [`'sqlite'`](https://github.com/douglasvbarone/prisma-apollo-js-helloworld/tree/sqlite).
 ## Usage
 ### Prepare
 ~~~
