@@ -17,6 +17,12 @@ const routes = [
       import(/* webpackChunkName: "new-post" */ '../views/NewPost.vue')
   },
   {
+    path: '/post/:id/edit',
+    name: 'EditPost',
+    component: () =>
+      import(/* webpackChunkName: "new-post" */ '../views/EditPost.vue')
+  },
+  {
     path: '/post/:id',
     name: 'Post',
     component: () => import(/* webpackChunkName: "post" */ '../views/Post.vue')

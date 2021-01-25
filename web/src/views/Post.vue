@@ -9,6 +9,9 @@
     </h3>
     <small>{{ post.author.profile.bio }}</small>
     <p class="my-12">{{ post.content }}</p>
+    <v-btn icon :to="`/post/${$route.params.id}/edit`">
+      <v-icon>mdi-pencil</v-icon>
+    </v-btn>
     <v-btn color="red darken-2" dark fab bottom right fixed @click="deletePost">
       <v-icon>mdi-trash-can</v-icon>
     </v-btn>

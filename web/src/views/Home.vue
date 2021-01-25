@@ -34,7 +34,6 @@ export default {
   components: {},
   apollo: {
     posts: {
-      fetchPolicy: 'cache-and-network',
       query: gql`
         {
           posts(onlyPublished: true) {

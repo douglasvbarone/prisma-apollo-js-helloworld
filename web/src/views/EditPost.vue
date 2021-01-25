@@ -1,8 +1,11 @@
 <template>
   <v-container>
-    <v-card>
+    <v-card
+      :loading="$apollo.queries.post.loading"
+      :disabled="$apollo.queries.post.loading"
+    >
       <v-card-title class="display-1">
-        New Post
+        Edit Post
       </v-card-title>
       <v-card-text>
         <v-form v-model="valid" ref="form">
@@ -69,7 +72,43 @@ export default {
           email
         }
       }
-    `
+    `,
+    post: {
+      query: gql`
+        query($id: String!) {
+          post(id: $id) {
+            id
+            createdAt
+            title
+            content
+            published
+
+            author {
+              name
+              email
+              profile {
+                bio
+              }
+            }
+          }
+        }
+      `,
+      variables() {
+        return {
+          id: this.$route.params.id
+        }
+      },
+      result({
+        data: {
+          post: { title, content, author, published }
+        }
+      }) {
+        this.title = title
+        this.content = content
+        this.published = published
+        this.author = author.email
+      }
+    }
   },
   computed: {
     authors() {
@@ -83,16 +122,17 @@ export default {
       if (this.valid)
         try {
           const {
-            data: { createPost }
+            data: { updatePost }
           } = await this.$apollo.mutate({
             mutation: gql`
-              mutation($data: PostInput!) {
-                createPost(data: $data) {
+              mutation($id: String!, $data: PostInput!) {
+                updatePost(id: $id, data: $data) {
                   id
                 }
               }
             `,
             variables: {
+              id: this.$route.params.id,
               data: {
                 title: this.title,
                 content: this.content,
@@ -102,7 +142,7 @@ export default {
             }
           })
 
-          this.$router.push(`/post/${createPost.id}`)
+          this.$router.push(`/post/${updatePost.id}`)
         } catch (e) {
           console.log(e)
         }
