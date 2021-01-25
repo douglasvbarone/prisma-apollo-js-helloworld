@@ -43,22 +43,26 @@ export const resolvers = {
 
         deletePost: (_, { postId }, { db }) => db.post.delete({ where: { id: postId } }),
 
-        updateProfile: async (_, { email, bio }, { db }) => db.profile.upsert({
-            where: {
-                userId: (await db.user.findOne({ where: { email } })).id
-            },
-            create: {
-                bio,
-                user: {
-                    connect: {
-                        email
+        updateProfile: async (_, { email, bio }, { db }) => {
+            const user = await db.user.findOne({ where: { email } })
+
+            return db.profile.upsert({
+                where: {
+                    userId: user.id
+                },
+                create: {
+                    bio,
+                    user: {
+                        connect: {
+                            email
+                        }
                     }
+                },
+                update: {
+                    bio
                 }
-            },
-            update: {
-                bio
-            }
-        })
+            })
+        }
     },
 
     Post: {
