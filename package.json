@@ -7,7 +7,7 @@
     "start": "node dist/index.js",
     "dev": "nodemon --ext js,graphql src/index.js --exec 'npx babel-node'",
     "build": "babel src --out-dir dist --copy-files",
-    "migrate": "npx prisma migrate save --name init --experimental && npx prisma migrate up --experimental && npx prisma generate"
+    "migrate": "prisma migrate dev --preview-feature"
   },
   "keywords": [],
   "author": "",
