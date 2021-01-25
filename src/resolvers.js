@@ -12,8 +12,8 @@ export const resolvers = {
   },
 
   Mutation: {
-    createUser: (_, { email, name, bio }, { db }) =>
-      db.user.create({
+    createUser(_, { email, name, bio }, { db }) {
+      return db.user.create({
         data: {
           email,
           name,
@@ -28,10 +28,15 @@ export const resolvers = {
         include: {
           profile: true
         }
-      }),
+      })
+    },
 
-    createPost: (_, { title, content, published, authorEmail }, { db }) =>
-      db.post.create({
+    createPost(
+      _,
+      { data: { title, content, published, authorEmail } },
+      { db }
+    ) {
+      return db.post.create({
         data: {
           title,
           content,
@@ -42,14 +47,38 @@ export const resolvers = {
             }
           }
         }
-      }),
+      })
+    },
 
-    deleteUser: (_, { email }, { db }) => db.user.delete({ where: { email } }),
+    updatePost(
+      _,
+      { id, data: { title, content, published, authorEmail } },
+      { db }
+    ) {
+      return db.post.update({
+        where: { id },
+        data: {
+          title,
+          content,
+          published,
+          author: {
+            connect: {
+              email: authorEmail
+            }
+          }
+        }
+      })
+    },
 
-    deletePost: (_, { postId }, { db }) =>
-      db.post.delete({ where: { id: postId } }),
+    deleteUser(_, { email }, { db }) {
+      return db.user.delete({ where: { email } })
+    },
 
-    updateProfile: async (_, { email, bio }, { db }) => {
+    deletePost(_, { postId }, { db }) {
+      return db.post.delete({ where: { id: postId } })
+    },
+
+    async updateProfile(_, { email, bio }, { db }) {
       const user = await db.user.findUnique({ where: { email } })
 
       return db.profile.upsert({
@@ -68,6 +97,32 @@ export const resolvers = {
           bio
         }
       })
+    },
+
+    async publishPost(_, { id }, { db }) {
+      const post = await db.post.update({
+        where: {
+          id
+        },
+        data: { published: true }
+      })
+
+      if (!post) throw new Error('Post inexistent')
+
+      return post
+    },
+
+    async unPublishPost(_, { id }, { db }) {
+      const post = await db.post.update({
+        where: {
+          id
+        },
+        data: { published: false }
+      })
+
+      if (!post) throw new Error('Post inexistent')
+
+      return post
     }
   },
 

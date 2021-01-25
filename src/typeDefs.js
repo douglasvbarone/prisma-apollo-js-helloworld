@@ -1,40 +1,49 @@
 import { gql } from 'apollo-server'
 
 export const typeDefs = gql`
-type Query {
-    users:      [User!]!
-    posts:      [Post!]!
-}
+  type Query {
+    users: [User!]!
+    posts: [Post!]!
+  }
 
-type Mutation {
-    createUser (email: String!, name: String, bio: String): User!    
-    createPost (title: String!, content: String, published: Boolean = false, authorEmail: String!): Post!
-    deleteUser (email: String!): User!
-    deletePost (postId: Int!): Post!
-    updateProfile (email: String!, bio: String!): Profile!
-}
+  type Mutation {
+    createUser(email: String!, name: String, bio: String): User!
+    createPost(data: PostInput!): Post!
+    deleteUser(email: String!): User!
+    deletePost(postId: String!): Post!
+    updateProfile(email: String!, bio: String!): Profile!
+    updatePost(id: String!, data: PostInput!): Post!
+    publishPost(id: String): Post!
+    unPublishPost(id: String): Post!
+  }
 
-type Post {
-    id:         Int!
-    createdAt:  String!
-    title:      String!
-    content:    String
-    published:  Boolean
-    author:     User!    
-}
+  type Post {
+    id: ID!
+    createdAt: String!
+    title: String!
+    content: String
+    published: Boolean
+    author: User!
+  }
 
-type Profile {
-    id:         Int!
-    bio:        String
-    user:       User!    
-}
-  
-type User {
-    id: Int!
-    email:      String!
-    name:       String
-    posts:      [Post!]!
-    profile:    Profile
-}
-  
+  type Profile {
+    id: ID!
+    bio: String
+    user: User!
+  }
+
+  type User {
+    id: ID!
+    email: String!
+    name: String
+    posts: [Post!]!
+    profile: Profile
+  }
+
+  input PostInput {
+    title: String!
+    content: String
+    published: Boolean = false
+    authorEmail: String!
+  }
 `
