@@ -1,10 +1,14 @@
 <template>
   <v-app>
     <v-app-bar app flat>
-      <v-btn text large to="/"><v-icon left>mdi-home</v-icon> Blog</v-btn>
+      <v-toolbar-items>
+        <v-btn text x-large to="/"><v-icon left>mdi-home</v-icon> Blog</v-btn>
+      </v-toolbar-items>
       <v-spacer />
       <v-toolbar-items>
-        <v-btn text to="/post/new"><v-icon left>mdi-plus</v-icon> Post</v-btn>
+        <v-btn color="primary" text to="/post/new"
+          ><v-icon left>mdi-plus</v-icon> Post</v-btn
+        >
       </v-toolbar-items>
     </v-app-bar>
 

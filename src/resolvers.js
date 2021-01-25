@@ -9,15 +9,10 @@ export const resolvers = {
       }),
 
     async posts(_, { onlyPublished }, { db }) {
-      const posts = await db.post.findMany({
+      return db.post.findMany({
         where: { published: onlyPublished ? true : undefined },
         orderBy: { createdAt: 'desc' }
       })
-
-      return posts.map(post => ({
-        ...post,
-        content: post.content.slice(0, 150) + '...'
-      }))
     },
 
     post(_, { id }, { db }) {
@@ -147,7 +142,7 @@ export const resolvers = {
           id: parent.authorId
         }
       }),
-
+    intro: parent => parent.content.slice(0, 150),
     createdAt: parent => new Date(parent.createdAt).toLocaleString()
   },
 

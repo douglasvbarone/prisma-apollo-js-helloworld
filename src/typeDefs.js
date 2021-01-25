@@ -23,6 +23,7 @@ export const typeDefs = gql`
     createdAt: String!
     title: String!
     content: String
+    intro: String
     published: Boolean
     author: User!
   }
