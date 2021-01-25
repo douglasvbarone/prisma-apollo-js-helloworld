@@ -50,8 +50,6 @@ export const resolvers = {
       { data: { title, content, published, authorEmail } },
       { db }
     ) {
-      console.log(title)
-
       return db.post.create({
         data: {
           title,
