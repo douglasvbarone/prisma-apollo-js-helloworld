@@ -8,7 +8,21 @@ export const resolvers = {
         }
       }),
 
-    posts: (_, args, { db }) => db.post.findMany()
+    async posts(_, { onlyPublished }, { db }) {
+      const posts = await db.post.findMany({
+        where: { published: onlyPublished ? true : undefined },
+        orderBy: { createdAt: 'desc' }
+      })
+
+      return posts.map(post => ({
+        ...post,
+        content: post.content.slice(0, 150) + '...'
+      }))
+    },
+
+    post(_, { id }, { db }) {
+      return db.post.findUnique({ where: { id } })
+    }
   },
 
   Mutation: {
@@ -127,12 +141,14 @@ export const resolvers = {
   },
 
   Post: {
-    author: (_, args, { db }) =>
+    author: (parent, args, { db }) =>
       db.user.findUnique({
         where: {
-          id: _.authorId
+          id: parent.authorId
         }
-      })
+      }),
+
+    createdAt: parent => new Date(parent.createdAt).toLocaleString()
   },
 
   User: {
