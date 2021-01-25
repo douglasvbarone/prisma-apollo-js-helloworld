@@ -5,7 +5,9 @@
         <v-hover v-slot="{ hover }">
           <v-card class="fill-height" :elevation="hover ? 16 : 1">
             <v-card-title class="display-1">
-              {{ post.title }}
+              <router-link :to="`/post/${post.id}`" class="post-link">
+                {{ post.title }}
+              </router-link>
             </v-card-title>
             <v-card-text>
               <span>
@@ -14,10 +16,7 @@
             </v-card-text>
             <v-card-text>
               {{ post.intro }}...
-              <router-link
-                :to="`/post/${post.id}`"
-                style="text-decoration: none"
-              >
+              <router-link :to="`/post/${post.id}`" class="post-link">
                 continue reading
               </router-link>
             </v-card-text>
@@ -55,3 +54,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.post-link {
+  text-decoration: none;
+}
+</style>
