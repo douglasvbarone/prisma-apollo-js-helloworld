@@ -1,18 +1,33 @@
 <template>
   <v-app>
-    <v-app-bar app flat>
-      <v-toolbar-items>
-        <v-btn text x-large to="/"><v-icon left>mdi-home</v-icon> Blog</v-btn>
-      </v-toolbar-items>
-      <v-spacer />
-      <v-toolbar-items>
-        <v-btn color="primary" text to="/post/new"
-          ><v-icon left>mdi-plus</v-icon> Post</v-btn
+    <v-app-bar app flat dark color="primary" collapse-on-scroll>
+      <v-fab-transition>
+        <v-btn
+          v-if="$route.name != 'Home'"
+          fab
+          color="white"
+          light
+          @click="$router.back()"
         >
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
+      </v-fab-transition>
+      <v-spacer />
+
+      <v-toolbar-items>
+        <v-btn text to="/" exact>
+          <v-icon left>mdi-home</v-icon>
+          Home
+        </v-btn>
+
+        <v-btn text to="/post/new">
+          <v-icon left>mdi-plus</v-icon>
+          Post
+        </v-btn>
       </v-toolbar-items>
     </v-app-bar>
 
-    <v-main>
+    <v-main class="mt-6">
       <router-view />
     </v-main>
   </v-app>

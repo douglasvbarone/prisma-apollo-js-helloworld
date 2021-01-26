@@ -4,15 +4,28 @@
       <v-col v-for="post in posts" :key="post.id" cols="12" md="6">
         <v-hover v-slot="{ hover }">
           <v-card class="fill-height" :elevation="hover ? 16 : 1">
-            <v-card-title class="display-1">
+            <v-card-title class="headline">
               <router-link :to="`/post/${post.id}`" class="post-link">
                 {{ post.title }}
               </router-link>
             </v-card-title>
             <v-card-text>
-              <span>
-                Author: {{ post.author.name }} - Published {{ post.createdAt }}
-              </span>
+              <v-container fluid>
+                <v-row>
+                  <v-col class="shrink">
+                    <v-img
+                      :src="post.author.profile.avatar"
+                      contain
+                      :height="42"
+                      :width="42"
+                    />
+                  </v-col>
+                  <v-col class="grow">
+                    {{ post.author.name }} <br />
+                    Published {{ post.createdAt }}
+                  </v-col>
+                </v-row>
+              </v-container>
             </v-card-text>
             <v-card-text>
               {{ post.intro }}...
@@ -45,6 +58,9 @@ export default {
             createdAt
             author {
               name
+              profile {
+                avatar
+              }
             }
           }
         }

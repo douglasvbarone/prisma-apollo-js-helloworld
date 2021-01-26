@@ -1,13 +1,27 @@
 <template>
   <v-container v-if="post">
     <h1 class="display-4 mb-6">{{ post.title }}</h1>
-    <h3 class="display-1 font-weight-light">
-      {{ post.author.name }},
-      <small>
-        {{ post.createdAt }}
-      </small>
-    </h3>
-    <small>{{ post.author.profile.bio }}</small>
+    <v-container fluid>
+      <v-row>
+        <v-col class="shrink" align-self="center">
+          <v-img
+            :src="post.author.profile.avatar"
+            contain
+            :height="96"
+            :width="96"
+          />
+        </v-col>
+        <v-col align-self="center">
+          <h3 class="display-1 font-weight-light">{{ post.author.name }},</h3>
+          <small>{{ post.author.profile.bio }}</small>
+          <br />
+          <small>
+            {{ post.createdAt }}
+          </small>
+        </v-col>
+      </v-row>
+    </v-container>
+
     <p class="my-12">{{ post.content }}</p>
     <v-btn icon :to="`/post/${$route.params.id}/edit`">
       <v-icon>mdi-pencil</v-icon>
@@ -38,6 +52,7 @@ export default {
               email
               profile {
                 bio
+                avatar
               }
             }
           }

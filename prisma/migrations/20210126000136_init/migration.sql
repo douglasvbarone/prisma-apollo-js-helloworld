@@ -12,6 +12,7 @@ CREATE TABLE "Post" (
 -- CreateTable
 CREATE TABLE "Profile" (
     "id" TEXT NOT NULL PRIMARY KEY,
+    "avatar" TEXT NOT NULL,
     "bio" TEXT,
     "userId" TEXT NOT NULL,
     FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE

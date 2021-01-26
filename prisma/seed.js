@@ -1,4 +1,7 @@
 const { PrismaClient } = require('@prisma/client')
+const { AvatarGenerator } = require('random-avatar-generator')
+
+const avatarGenerator = new AvatarGenerator()
 
 const faker = require('faker')
 
@@ -15,7 +18,8 @@ async function main() {
         name: faker.name.findName(firstName, lastName),
         profile: {
           create: {
-            bio: faker.lorem.sentence()
+            bio: faker.lorem.sentence(),
+            avatar: avatarGenerator.generateRandomAvatar()
           }
         },
         posts: {
