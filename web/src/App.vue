@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app flat dark color="primary" collapse-on-scroll>
+    <v-app-bar app flat dark color="primary">
       <v-fab-transition>
         <v-btn
           v-if="$route.name != 'Home'"

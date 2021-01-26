@@ -18,20 +18,20 @@ async function main() {
         name: faker.name.findName(firstName, lastName),
         profile: {
           create: {
-            bio: faker.lorem.sentence(),
+            bio: faker.lorem.sentences(2),
             avatar: avatarGenerator.generateRandomAvatar()
           }
         },
         posts: {
           create: [
             {
-              title: faker.lorem.sentence(5),
-              content: faker.lorem.paragraphs(5),
+              title: faker.lorem.sentence(4),
+              content: faker.lorem.paragraphs(15),
               published: Boolean(Math.random() > 0.5)
             },
             {
               title: faker.lorem.sentence(5),
-              content: faker.lorem.paragraphs(5),
+              content: faker.lorem.paragraphs(20),
               published: Boolean(Math.random() > 0.5)
             }
           ]

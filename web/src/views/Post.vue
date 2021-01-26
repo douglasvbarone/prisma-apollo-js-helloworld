@@ -22,13 +22,28 @@
       </v-row>
     </v-container>
 
-    <p class="my-12">{{ post.content }}</p>
-    <v-btn icon :to="`/post/${$route.params.id}/edit`">
-      <v-icon>mdi-pencil</v-icon>
-    </v-btn>
-    <v-btn color="red darken-2" dark fab bottom right fixed @click="deletePost">
-      <v-icon>mdi-trash-can</v-icon>
-    </v-btn>
+    <p
+      class="my-12 content font-weight-light text-justify"
+      v-html="content"
+    ></p>
+
+    <v-speed-dial
+      fixed
+      bottom
+      right
+      direction="top"
+      transition="scale-transition"
+    >
+      <template #activator>
+        <v-btn x-large fab color="primary"><v-icon>mdi-plus</v-icon></v-btn>
+      </template>
+      <v-btn fab color="green" :to="`/post/${$route.params.id}/edit`" dark>
+        <v-icon>mdi-pencil</v-icon>
+      </v-btn>
+      <v-btn color="red darken-2" dark fab @click="deletePost">
+        <v-icon>mdi-trash-can</v-icon>
+      </v-btn>
+    </v-speed-dial>
   </v-container>
 </template>
 
@@ -65,6 +80,11 @@ export default {
       }
     }
   },
+  computed: {
+    content() {
+      return this.post?.content.replaceAll('\n', '</p><p>')
+    }
+  },
   methods: {
     async deletePost() {
       if (confirm('Are you sure?'))
@@ -91,4 +111,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.content {
+  line-height: 1.8em;
+  font-size: 24px;
+}
+</style>
