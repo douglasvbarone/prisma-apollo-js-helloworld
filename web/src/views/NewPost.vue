@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card>
+    <v-card :loading="loading" :disabled="loading">
       <v-card-title class="display-1">
         New Post
       </v-card-title>
@@ -32,7 +32,7 @@
       <v-card-actions>
         <v-spacer />
         <v-switch v-model="published" label="Published" class="mr-4" />
-        <v-btn color="primary" @click="save">
+        <v-btn color="primary" @click="save" :disabled="!valid">
           <v-icon left>mdi-content-save</v-icon>
           Save
         </v-btn>
@@ -46,6 +46,7 @@ import gql from 'graphql-tag'
 
 export default {
   data: () => ({
+    loading: false,
     valid: false,
 
     titleRules: [
@@ -82,6 +83,7 @@ export default {
 
       if (this.valid)
         try {
+          this.loading = true
           const {
             data: { createPost }
           } = await this.$apollo.mutate({
@@ -105,6 +107,8 @@ export default {
           this.$router.push(`/post/${createPost.id}`)
         } catch (e) {
           console.log(e)
+        } finally {
+          this.loading = false
         }
     }
   }

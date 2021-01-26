@@ -1,17 +1,22 @@
 <template>
   <v-app>
-    <v-app-bar app flat dark color="primary">
-      <v-fab-transition>
-        <v-btn
-          v-if="$route.name != 'Home'"
-          fab
-          color="white"
-          light
-          @click="$router.back()"
-        >
-          <v-icon>mdi-arrow-left</v-icon>
-        </v-btn>
-      </v-fab-transition>
+    <v-fab-transition>
+      <v-btn
+        v-if="$route.name != 'Home'"
+        small
+        fab
+        top
+        left
+        fixed
+        color="white"
+        light
+        style="z-index: 99"
+        @click="$router.back()"
+      >
+        <v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
+    </v-fab-transition>
+    <v-app-bar app flat dark color="primary" hide-on-scroll>
       <v-spacer />
 
       <v-toolbar-items>

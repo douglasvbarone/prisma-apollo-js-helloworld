@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="post">
+  <v-container v-if="post" style="max-width: 960px">
     <h1 class="display-4 mb-6">{{ post.title }}</h1>
     <v-container fluid>
       <v-row>
@@ -7,8 +7,8 @@
           <v-img
             :src="post.author.profile.avatar"
             contain
-            :height="96"
-            :width="96"
+            :height="128"
+            :width="128"
           />
         </v-col>
         <v-col align-self="center">

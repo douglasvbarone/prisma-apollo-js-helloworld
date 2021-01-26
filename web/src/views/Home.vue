@@ -1,5 +1,5 @@
 <template>
-  <v-container class="home">
+  <v-container class="home" style="max-width: 960px">
     <v-row>
       <v-col v-for="post in posts" :key="post.id" cols="12" md="6">
         <v-hover v-slot="{ hover }">

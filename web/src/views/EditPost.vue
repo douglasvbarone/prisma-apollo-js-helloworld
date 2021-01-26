@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-card
-      :loading="$apollo.queries.post.loading"
-      :disabled="$apollo.queries.post.loading"
+      :loading="$apollo.queries.post.loading || loading"
+      :disabled="$apollo.queries.post.loading || loading"
     >
       <v-card-title class="display-1">
         Edit Post
@@ -35,7 +35,7 @@
       <v-card-actions>
         <v-spacer />
         <v-switch v-model="published" label="Published" class="mr-4" />
-        <v-btn color="primary" @click="save">
+        <v-btn color="primary" @click="save" :loading="loading">
           <v-icon left>mdi-content-save</v-icon>
           Save
         </v-btn>
@@ -49,6 +49,7 @@ import gql from 'graphql-tag'
 
 export default {
   data: () => ({
+    loading: false,
     valid: false,
 
     titleRules: [
@@ -121,6 +122,7 @@ export default {
 
       if (this.valid)
         try {
+          this.loading = true
           const {
             data: { updatePost }
           } = await this.$apollo.mutate({
@@ -145,6 +147,8 @@ export default {
           this.$router.push(`/post/${updatePost.id}`)
         } catch (e) {
           console.log(e)
+        } finally {
+          this.loading = false
         }
     }
   }
