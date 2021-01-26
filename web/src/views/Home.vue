@@ -5,7 +5,7 @@
         <v-hover v-slot="{ hover }">
           <router-link :to="`/post/${post.id}`" class="post-link">
             <v-card class="fill-height" :elevation="hover ? 6 : 2">
-              <v-card-title class="headline">
+              <v-card-title class="headline font-weight-light">
                 {{ post.title }}
               </v-card-title>
               <v-card-text>
