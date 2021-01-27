@@ -1,6 +1,6 @@
 <template>
   <v-container v-if="post" style="max-width: 960px">
-    <h1 class="display-4 mb-6">{{ post.title }}</h1>
+    <h1 class="display-4 mb-6 pop">{{ post.title }}</h1>
     <v-container fluid>
       <v-row>
         <v-col class="shrink" align-self="center">

@@ -1,0 +1,26 @@
+@keyframes pop-in {
+  0% {
+    transform: perspective(500px) translateZ(0px) rotateY(0);
+  }
+  100% {
+    transform: perspective(500px) translateZ(20px) rotateY(5deg);
+  }
+}
+
+@keyframes pop-out {
+  0% {
+    transform: perspective(500px) translateZ(20px) rotateY(5deg);
+  }
+  100% {
+    transform: perspective(500px) translateZ(0px) rotateY(0);
+  }
+}
+
+.pop {
+  animation: pop-out 100ms ease-in-out forwards;
+  transition-duration: 200ms;
+}
+
+.pop:hover {
+  animation: pop-in 200ms ease-in-out forwards;
+}

@@ -4,7 +4,7 @@
       <v-col v-for="post in posts" :key="post.id" cols="12" md="6">
         <v-hover v-slot="{ hover }">
           <router-link :to="`/post/${post.id}`" class="text-decoration-none">
-            <v-card class="fill-height post" :elevation="hover ? 24 : 5">
+            <v-card class="fill-height pop" :elevation="hover ? 24 : 5">
               <v-card-title class="headline font-weight-light">
                 {{ post.title }}
               </v-card-title>
@@ -67,31 +67,4 @@ export default {
 }
 </script>
 
-<style scoped>
-@keyframes pop-in {
-  0% {
-    transform: perspective(500px) translateZ(0px) rotateY(0);
-  }
-  100% {
-    transform: perspective(500px) translateZ(20px) rotateY(5deg);
-  }
-}
-
-@keyframes pop-out {
-  0% {
-    transform: perspective(500px) translateZ(20px) rotateY(5deg);
-  }
-  100% {
-    transform: perspective(500px) translateZ(0px) rotateY(0);
-  }
-}
-
-.post {
-  animation: pop-out 100ms ease-in-out forwards;
-  transition-duration: 200ms;
-}
-
-.post:hover {
-  animation: pop-in 200ms ease-in-out forwards;
-}
-</style>
+<style scoped></style>
