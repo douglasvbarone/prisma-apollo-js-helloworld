@@ -11,6 +11,7 @@ A simple Prisma example using Apollo server.
 ```
 npm install
 npm run migrate
+npm run reset
 
 cd web
 npm install
