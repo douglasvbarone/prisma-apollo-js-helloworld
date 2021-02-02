@@ -8,9 +8,14 @@ export const resolvers = {
         }
       }),
 
-    async posts(_, { onlyPublished }, { db }) {
+    async posts(_, { onlyPublished, onlyDrafts }, { db }) {
+      if (onlyDrafts && onlyPublished)
+        throw new Error("Can't show results with this criteria")
+
       return db.post.findMany({
-        where: { published: onlyPublished ? true : undefined },
+        where: {
+          published: onlyPublished ? true : onlyDrafts ? false : undefined
+        },
         orderBy: { createdAt: 'desc' }
       })
     },

@@ -3,7 +3,7 @@ import { gql } from 'apollo-server'
 export const typeDefs = gql`
   type Query {
     users: [User!]!
-    posts(onlyPublished: Boolean = true): [Post!]!
+    posts(onlyPublished: Boolean = true, onlyDrafts: Boolean = false): [Post!]!
     post(id: String!): Post!
   }
 

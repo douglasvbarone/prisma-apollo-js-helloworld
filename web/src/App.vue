@@ -24,6 +24,10 @@
           <v-icon left>mdi-home</v-icon>
           Home
         </v-btn>
+<v-btn text to="/drafts" exact>
+          <v-icon left>mdi-pencil</v-icon>
+          Drafts
+        </v-btn>
 
         <v-btn text to="/post/new">
           <v-icon left>mdi-plus</v-icon>
